@@ -1,7 +1,50 @@
-var validateField = function(fieldElem, infoMessage, validateFn) {
-	// TODO: Implement validateField.
+const url = './slatko.json';
+const init = () => {
+  const renderList = (data) => {
+    let ul = document.querySelector('ul');
+    let inner = '';
+    for (let i of data) {
+      inner += '<li>' + i.name + '</li>';
+    }
+    ul.innerHTML = inner;
+    document.body.appendChild(ul);
+  };
+
+  const renderTable = (data) => {
+    let tbody = document.querySelector('tbody');
+    let inner = '';
+    for (let tr of data) {
+      inner += '<tr>';
+      for (let td in tr) {
+        inner += '<td>' + tr[td]  + '</td>';
+      }
+      inner += '</tr>';
+    }
+    tbody.innerHTML = inner;
+  };
+
+  const onFetchSuccess = (data) => {
+    const radioButtons = document.querySelectorAll('input');
+    for (let rb of radioButtons) {
+      rb.addEventListener('click', function (ev) {
+        if (ev.currentTarget.value === 'table') {
+          renderTable(data);
+        } else {
+          renderList(data);
+        }
+      });
+    }
+
+  };
+
+  fetch(url)
+    .then(data => data.json())
+    .then((res) => {
+      onFetchSuccess(res);
+    })
+    .catch(err => console.error(err));
 };
 
-$(document).ready(function() {
-	// TODO: Use validateField to validate form fields on the page.
+document.addEventListener('DOMContentLoaded', function () {
+  init();
 });
