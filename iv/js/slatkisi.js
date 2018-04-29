@@ -1,7 +1,10 @@
 const url = './slatko.json';
 const init = () => {
   const renderList = (data) => {
+    let table = document.querySelector('table');
     let ul = document.querySelector('ul');
+    table.classList.add('dn');
+    ul.classList.remove('dn');
     let inner = '';
     for (let i of data) {
       inner += '<li>' + i.name + '</li>';
@@ -11,6 +14,10 @@ const init = () => {
   };
 
   const renderTable = (data) => {
+    let table = document.querySelector('table');
+    let ul = document.querySelector('ul');
+    table.classList.remove('dn');
+    ul.classList.add('dn');
     let tbody = document.querySelector('tbody');
     let inner = '';
     for (let tr of data) {
